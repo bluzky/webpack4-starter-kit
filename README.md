@@ -17,3 +17,4 @@ yarn install
 - `yarn start` : start dev server
 - `yarn dev`  : build dev
 - `yarn build` : build production
+- `yarn clean` : clean build directory

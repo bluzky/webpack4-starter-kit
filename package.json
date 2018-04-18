@@ -7,7 +7,7 @@
     "watch": "webpack --watch --progress",
     "start": "webpack-dev-server",
     "dev": "webpack",
-    "clean": "shx rm -rf ../priv/static",
+    "clean": "shx rm -rf build/static",
     "build": "npm run clean && cross-env NODE_ENV=\"production\" webpack"
   },
   "devDependencies": {

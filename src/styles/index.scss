@@ -1,0 +1,7 @@
+@import "test";
+.test {
+  color: blue;
+  .in {
+    color: green;
+  }
+}

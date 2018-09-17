@@ -1,8 +1,10 @@
 const
   manifest          = require('../manifest'),
-  ExtractTextPlugin = require('extract-text-webpack-plugin');
+  MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-module.exports = new ExtractTextPlugin({
-  filename: manifest.outputFiles.css,
-  allChunks: true,
-});
+module.exports = 
+    new MiniCssExtractPlugin({
+      filename: manifest.outputFiles.css,
+      //filename: "[name].css",
+      allChunks: true,
+    });

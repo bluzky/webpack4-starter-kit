@@ -17,7 +17,7 @@
 
 const
   manifest          = require('../manifest'),
-  ExtractTextPlugin = require('extract-text-webpack-plugin');
+  MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 
 // ---------------
@@ -27,6 +27,10 @@ const
 let rule = {};
 
 const loaders = [
+ {
+        loader: MiniCssExtractPlugin.loader,
+        options: {}
+   },
   {
     loader: 'css-loader',
     options: {
@@ -44,9 +48,7 @@ const loaders = [
 if (manifest.IS_PRODUCTION) {
   rule = {
     test: /\.css$/,
-    loader: ExtractTextPlugin.extract({
-      use: loaders,
-    }),
+    loader: loaders,
   };
 }
 

@@ -16,7 +16,8 @@
 const path = require("path"),
   manifest = require("./manifest"),
   rules = require("./rules"),
-  plugins = require("./plugins");
+  plugins = require("./plugins"),
+  UglifyJsPlugin = require('uglifyjs-webpack-plugin');;
 
 // ------------------
 // @Entry Point Setup
@@ -43,6 +44,64 @@ const resolve = {
   ]
 };
 
+
+// ---------------
+// @Optimization and split chunk
+// -------------
+var optimization = {
+    namedChunks: true,
+    nodeEnv: 'production',
+    splitChunks: {
+      chunks: 'all',
+      minSize: 30000,
+      maxSize: 0,
+      minChunks: 1,
+      maxAsyncRequests: 5,
+      maxInitialRequests: 3,
+      name: false,
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      }
+    }
+};
+  
+  
+if (manifest.IS_PRODUCTION) {
+    optimization.minimizer = [
+      new UglifyJsPlugin({
+          parallel: true,
+          uglifyOptions: {
+              compress: {
+                comparisons: true,
+                conditionals: true,
+                dead_code: true,
+                drop_debugger: true,
+                evaluate: true,
+                if_return: true,
+                join_vars: true,
+                sequences: true,
+                unused: true,
+                warnings: false
+              },
+
+              output: {
+                comments: false
+              }
+          }
+        })
+    ]
+}
+  
+  
+
 // -----------------
 // @Exporting Module
 // -----------------
@@ -54,12 +113,13 @@ module.exports = {
   entry: entries,
   output: {
     path: manifest.paths.build,
-    publicPath: "/",
+    publicPath: "/static/",
     filename: manifest.outputFiles.bundle
   },
   module: {
     rules
   },
   resolve,
-  plugins
+  plugins,
+  optimization
 };

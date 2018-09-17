@@ -56,7 +56,8 @@ const outputFiles = {
 // --------------------
 
 const entries = {
-  app: 'index.js'
+  app: 'index.js',
+  admin: 'admin.js'
 }
 
 // -----------------

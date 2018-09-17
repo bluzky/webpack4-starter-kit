@@ -9,7 +9,8 @@ plugins.push(
 
 if (manifest.IS_PRODUCTION) {
   plugins.push(require("./imageminPlugin"));
-  plugins.push(require("./copyPlugin"));
 }
+
+plugins.push(require("./copyPlugin"));
 
 module.exports = plugins;

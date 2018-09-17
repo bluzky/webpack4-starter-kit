@@ -15,12 +15,16 @@
 const manifest = require("../manifest"),
   path = require("path"),
   cssNext = require("postcss-cssnext"),
-  ExtractTextPlugin = require("extract-text-webpack-plugin");
+  MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 // ---------------
 // @Common Loaders
 // ---------------
 const loaders = [
+  {
+        loader: MiniCssExtractPlugin.loader,
+        options: {}
+   },
   {
     loader: "css-loader",
     options: {
@@ -49,10 +53,7 @@ const loaders = [
 
 const rule = {
   test: /\.scss$/,
-  use: ExtractTextPlugin.extract({
-    fallback: "style-loader",
-    use: loaders
-  })
+  use: loaders
 };
 
 // -----------------

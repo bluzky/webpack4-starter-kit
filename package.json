@@ -40,9 +40,7 @@
     "stylelint-config-standard": "^17.0.0",
     "url-loader": "^1.0.1",
     "file-loader": "^1.1.5",
-    "video.js": "^6.7.3",
     "webpack": "^3.8.1",
-    "webpack-dashboard": "^1.0.0",
     "webpack-dev-server": "^2.9.3"
   },
   "dependencies": {
@@ -50,7 +48,8 @@
     "bootstrap": "^4.0.0",
     "jquery": "^3.2.1",
     "jvectormap": "^2.0.4",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "upath": "^1.1.0"
   },
   "prettier": {
     "overrides": [

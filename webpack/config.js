@@ -17,7 +17,8 @@ const path = require("path"),
   manifest = require("./manifest"),
   rules = require("./rules"),
   plugins = require("./plugins"),
-  UglifyJsPlugin = require('uglifyjs-webpack-plugin');;
+  UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+	const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 // ------------------
 // @Entry Point Setup
@@ -49,26 +50,21 @@ const resolve = {
 // @Optimization and split chunk
 // -------------
 var optimization = {
-    namedChunks: true,
-    nodeEnv: 'production',
+	nodeEnv: 'production',
     splitChunks: {
-      chunks: 'all',
-      minSize: 30000,
-      maxSize: 0,
-      minChunks: 1,
-      maxAsyncRequests: 5,
-      maxInitialRequests: 3,
-      name: false,
+			chunks: 'all',
       cacheGroups: {
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          priority: -10
-        },
-        default: {
-          minChunks: 2,
-          priority: -20,
-          reuseExistingChunk: true
-        }
+				commons: {
+					chunks: 'all',
+				
+				
+					priority: 1
+				},
+        // vendors: {
+//           test: /[\\/]node_modules[\\/]/,
+//           priority: -10
+//         },
+        default: false
       }
     }
 };
@@ -120,6 +116,6 @@ module.exports = {
     rules
   },
   resolve,
-  plugins,
+  plugins: [...plugins,  new BundleAnalyzerPlugin()],
   optimization
 };

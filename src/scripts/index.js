@@ -1,2 +1,3 @@
-import "../styles/index.scss";
-import('bootstrap');
+import "./a";
+import("./b");
+import "./c";

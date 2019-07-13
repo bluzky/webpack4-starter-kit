@@ -17,8 +17,9 @@ const path = require("path"),
   manifest = require("./manifest"),
   rules = require("./rules"),
   plugins = require("./plugins"),
-  UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-	const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+  UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
 
 // ------------------
 // @Entry Point Setup
@@ -26,11 +27,7 @@ const path = require("path"),
 
 var entries = {};
 for (var key in manifest.entries) {
-  entries[key] = path.join(
-    manifest.paths.src,
-    "scripts",
-    manifest.entries[key]
-  );
+  entries[key] = path.join(manifest.paths.src, "js", manifest.entries[key]);
 }
 
 // ---------------
@@ -45,77 +42,81 @@ const resolve = {
   ]
 };
 
-
 // ---------------
 // @Optimization and split chunk
 // -------------
 var optimization = {
-	nodeEnv: 'production',
-    splitChunks: {
-			chunks: 'all',
-      cacheGroups: {
-				commons: {
-					chunks: 'all',
-				
-				
-					priority: 1
-				},
-        // vendors: {
-//           test: /[\\/]node_modules[\\/]/,
-//           priority: -10
-//         },
-        default: false
-      }
+  nodeEnv: "production",
+  splitChunks: {
+    chunks: "all",
+    cacheGroups: {
+      commons: {
+        chunks: "all",
+        name: "commons",
+        priority: 1
+      },
+      // vendors: {
+      //           test: /[\\/]node_modules[\\/]/,
+      //           priority: -10
+      //         },
+      default: false
     }
+  }
 };
-  
-  
-if (manifest.IS_PRODUCTION) {
-    optimization.minimizer = [
-      new UglifyJsPlugin({
-          parallel: true,
-          uglifyOptions: {
-              compress: {
-                comparisons: true,
-                conditionals: true,
-                dead_code: true,
-                drop_debugger: true,
-                evaluate: true,
-                if_return: true,
-                join_vars: true,
-                sequences: true,
-                unused: true,
-                warnings: false
-              },
 
-              output: {
-                comments: false
-              }
-          }
-        })
-    ]
+if (manifest.IS_PRODUCTION) {
+  optimization.minimizer = [
+    new UglifyJsPlugin({
+      parallel: true,
+      uglifyOptions: {
+        compress: {
+          comparisons: true,
+          conditionals: true,
+          dead_code: true,
+          drop_debugger: true,
+          evaluate: true,
+          if_return: true,
+          join_vars: true,
+          sequences: true,
+          unused: true,
+          warnings: false
+        },
+
+        output: {
+          comments: false
+        }
+      }
+    })
+  ];
 }
-  
-  
 
 // -----------------
 // @Exporting Module
 // -----------------
 
+var devServer = {
+  contentBase: path.join(__dirname, "../"),
+  compress: true,
+  port: 8000
+};
+
 module.exports = {
-  devtool: manifest.IS_PRODUCTION ? false : "cheap-eval-source-map",
-  context: path.join(manifest.paths.src, "scripts"),
-  //  watch: !manifest.IS_PRODUCTION,
+  devtool: manifest.IS_PRODUCTION ? false : "inline-source-map",
+  context: path.join(manifest.paths.src, manifest.paths.js_source_dir),
   entry: entries,
   output: {
     path: manifest.paths.build,
-    publicPath: "/static/",
+    publicPath: manifest.paths.public_path,
     filename: manifest.outputFiles.bundle
   },
   module: {
     rules
   },
   resolve,
-  plugins: [...plugins,  new BundleAnalyzerPlugin()],
-  optimization
+  externals: {
+    window: "window"
+  },
+  plugins,
+  optimization,
+  devServer
 };

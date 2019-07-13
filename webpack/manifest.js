@@ -16,49 +16,51 @@
 // @Loading Dependencies
 // ---------------------
 
-const path = require('path')
+const path = require("path");
 
 // --------------------
 // @Environment Holders
 // --------------------
 
-const NODE_ENV = process.env.NODE_ENV || 'development',
-  IS_DEVELOPMENT = NODE_ENV === 'development',
-  IS_PRODUCTION = NODE_ENV === 'production'
+const NODE_ENV = process.env.NODE_ENV || "development",
+  IS_DEVELOPMENT = NODE_ENV === "development",
+  IS_PRODUCTION = NODE_ENV === "production";
 
 // ------
 // @Utils
 // ------
 
-const dir = src => path.join(__dirname, src)
+const dir = src => path.join(__dirname, src);
 
 // ----------
 // @App Paths
 // ----------
 
 const paths = {
-  src: dir('../src'),
-  build: dir('../build/static')
-}
+  src: dir("../src"),
+  build: dir("../build/static"),
+  public_path: "/build/",
+  js_source_dir: "js"
+};
 
 // -------------------
 // @Output Files Names
 // -------------------
 
 const outputFiles = {
-  bundle: 'js/[name].js',
-  vendor: 'js/vendor.js',
-  css: 'css/style.css'
-}
+  bundle: "js/[name].js",
+  vendor: "js/vendor.js",
+  css: "css/[name].css"
+};
 
 // --------------------
 // @Entries Files Names
 // --------------------
 
 const entries = {
-  app: 'index.js',
-  admin: 'admin.js'
-}
+  app: "index.js",
+  admin: "admin.js"
+};
 
 // -----------------
 // @Exporting Module
@@ -71,4 +73,4 @@ module.exports = {
   NODE_ENV,
   IS_DEVELOPMENT,
   IS_PRODUCTION
-}
+};

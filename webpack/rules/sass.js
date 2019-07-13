@@ -13,18 +13,21 @@
 // ---------------------
 
 const manifest = require("../manifest"),
-  path = require("path"),
-  cssNext = require("postcss-cssnext"),
-  MiniCssExtractPlugin = require("mini-css-extract-plugin");
+      path = require("path"),
+      cssNext = require("postcss-cssnext"),
+      MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 // ---------------
 // @Common Loaders
 // ---------------
 const loaders = [
   {
-        loader: MiniCssExtractPlugin.loader,
-        options: {}
-   },
+    loader: MiniCssExtractPlugin.loader,
+    options: {
+      sourceMap: manifest.IS_DEVELOPMENT,
+      importLoader: 2
+    }
+  },
   {
     loader: "css-loader",
     options: {
@@ -42,6 +45,7 @@ const loaders = [
   {
     loader: "sass-loader",
     options: {
+      sourceMap: manifest.IS_DEVELOPMENT,
       includePaths: [
         path.join("../../", "node_modules"),
         path.join(manifest.paths.src, "styles"),
@@ -50,6 +54,8 @@ const loaders = [
     }
   }
 ];
+
+
 
 const rule = {
   test: /\.scss$/,

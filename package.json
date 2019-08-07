@@ -4,9 +4,9 @@
   "private": true,
   "description": "Project description",
   "scripts": {
-    "watch": "webpack --watch --progress",
+    "watch": "webpack --watch --progress --mode development",
     "start": "webpack-dev-server",
-    "dev": "webpack",
+    "dev": "webpack --mode development",
     "clean": "shx rm -rf build/static",
     "build": "npm run clean && cross-env NODE_ENV=\"production\" webpack"
   },

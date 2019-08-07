@@ -27,7 +27,7 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
 
 var entries = {};
 for (var key in manifest.entries) {
-  entries[key] = path.join(manifest.paths.src, "js", manifest.entries[key]);
+  entries[key] = path.join(manifest.paths.src, manifest.paths.js_source_dir, manifest.entries[key]);
 }
 
 // ---------------

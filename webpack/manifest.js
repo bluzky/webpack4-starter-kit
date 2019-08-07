@@ -40,7 +40,7 @@ const paths = {
   src: dir("../src"),
   build: dir("../build/static"),
   public_path: "/build/",
-  js_source_dir: "js"
+  js_source_dir: ""
 };
 
 // -------------------
@@ -49,7 +49,6 @@ const paths = {
 
 const outputFiles = {
   bundle: "js/[name].js",
-  vendor: "js/vendor.js",
   css: "css/[name].css"
 };
 
@@ -58,8 +57,9 @@ const outputFiles = {
 // --------------------
 
 const entries = {
-  app: "index.js",
-  admin: "admin.js"
+  app: "js/index.js",
+  admin: "js/admin.js",
+  "page/test": "js/page/test.js"
 };
 
 // -----------------

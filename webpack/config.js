@@ -18,8 +18,6 @@ const path = require("path"),
   rules = require("./rules"),
   plugins = require("./plugins"),
   UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
-  .BundleAnalyzerPlugin;
 
 // ------------------
 // @Entry Point Setup

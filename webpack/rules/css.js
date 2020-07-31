@@ -29,7 +29,10 @@ let rule = {};
 const loaders = [
  {
         loader: MiniCssExtractPlugin.loader,
-        options: {}
+        options: {
+          filename: manifest.outputFiles.css,
+          allChunks: true
+        }
    },
   {
     loader: 'css-loader',

@@ -13,9 +13,9 @@
 // ---------------------
 
 const manifest = require("../manifest"),
-      path = require("path"),
-      cssNext = require("postcss-cssnext"),
-      MiniCssExtractPlugin = require("mini-css-extract-plugin");
+  path = require("path"),
+  cssNext = require("postcss-cssnext"),
+  MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 // ---------------
 // @Common Loaders
@@ -31,8 +31,7 @@ const loaders = [
   {
     loader: "css-loader",
     options: {
-      sourceMap: manifest.IS_DEVELOPMENT,
-      minimize: manifest.IS_PRODUCTION
+      sourceMap: manifest.IS_DEVELOPMENT
     }
   },
   {
@@ -46,11 +45,13 @@ const loaders = [
     loader: "sass-loader",
     options: {
       sourceMap: manifest.IS_DEVELOPMENT,
-      includePaths: [
-        path.join("../../", "node_modules"),
-        path.join(manifest.paths.src, "styles"),
-        path.join(manifest.paths.src, "")
-      ]
+      sassOptions: {
+        includePaths: [
+          path.join("../../", "node_modules"),
+          path.join(manifest.paths.src, "styles"),
+          path.join(manifest.paths.src, "")
+        ]
+      }
     }
   }
 ];
